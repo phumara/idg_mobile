@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:expandable_text/expandable_text.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -68,15 +70,21 @@ Widget _buildBody() {
 
 Widget _buildPoster() {
     final pic = 'https://i.pinimg.com/1200x/c6/99/c9/c699c918cf736e8efeaa6c55b031ef6d.jpg';
-    return Padding(
+    final text = 'Create eye-catching Sprite poster designs that highlight freshness and vibrant graphics Create eye-catching Sprite poster designs that highlight freshness and vibrant graphics Create eye-catching Sprite poster designs that highlight freshness and vibrant graphics. The primary keyword "facebook advertising poster design" is reflected in inspiring ads and brand promotion';
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+    
+    child: Padding(
       padding:const EdgeInsets.all(8.0),
       child: Column(
         children:[
           _buildPosterImage(pic),
-          _buildPosterText(),
+          _buildPosterText(text),
           _buildPosterIconRow(),
         ],
       )
+    )
       );
     
   }
@@ -97,14 +105,19 @@ Widget _buildPosterIconRow() {
         );
 }
 
-Widget _buildPosterText() {
+Widget _buildPosterText(String text) {
   return Container(
           color: const Color.fromARGB(255, 241, 236, 236),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Create eye-catching Sprite poster designs that highlight freshness and vibrant graphics. The primary keyword "facebook advertising poster design" is reflected in inspiring ads and brand promotion',
-               style: TextStyle(fontSize: 10,fontWeight: FontWeight.normal),
+            child: ExpandableText(
+              text,
+              style: GoogleFonts.roboto(fontSize: 16,fontWeight: FontWeight.bold),
+              expandText: 'Read more',
+              collapseText: 'Read less',
+               maxLines: 3,
+               linkColor: Colors.blue,
+        
 
             ),
           ),

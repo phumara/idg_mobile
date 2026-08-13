@@ -65,8 +65,24 @@ class HomeScreen extends StatelessWidget {
 
 Widget _buildBody() {
    
-  return  _buildPoster();  
+  return  _buildHorizontalListview();  
   }
+
+Widget _buildHorizontalListview() {
+  return Container(
+    height: 200,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        Container(color: Colors.red, width: 100),
+        Container(color: Colors.blue, width: 100),
+        Container(color: Colors.green, width: 100),
+        Container(color: Colors.yellow, width: 100),
+        Container(color: Colors.orange, width: 100),
+      ],
+    ),
+  );
+}
 
 Widget _buildPoster() {
     final pic = 'https://i.pinimg.com/1200x/c6/99/c9/c699c918cf736e8efeaa6c55b031ef6d.jpg';

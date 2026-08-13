@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'food_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -65,8 +66,108 @@ class HomeScreen extends StatelessWidget {
 
 Widget _buildBody() {
    
-  return  _buildHorizontalListview();  
+  return _buildFoodGridview();
   }
+
+Widget _buildFoodGridview() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 3/5,
+      ),
+      itemCount: foods.length,
+      itemBuilder:((context, index) {
+        final item = foods[index];
+        //return _buildFoodCard(item);
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: GridTile(
+            child: Image.network(item.image, fit: BoxFit.cover),
+            //footer: GridTileBar(
+             // backgroundColor: Colors.black54,
+             // title: Text(item.title, style: TextStyle(fontSize: 14)),
+             // subtitle: Text('Rating: ${item.rate}', style: TextStyle(fontSize: 12)),
+           // ),
+          ),
+        );
+      })
+      //itemBuilder: (context, index) => _buildFoodCard(foods[index]),
+      //physics: const BouncingScrollPhysics(),
+    );
+  }
+
+
+Widget _buildFoodCard(Food food) {
+  return Card(
+    clipBehavior: Clip.antiAlias,
+    elevation: 3,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Image.network(
+            food.image,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) =>
+                const Center(child: Icon(Icons.broken_image)),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(food.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Expanded(
+                  child: Text(food.des,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 12)),
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.star, size: 16, color: Colors.amber),
+                    const SizedBox(width: 3),
+                    Text(food.rate.toString()),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
+Widget _buildGridView() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        maxCrossAxisExtent: 200,
+        childAspectRatio: 0.62,
+      ),
+      physics: const BouncingScrollPhysics(),
+      itemCount: foods.length,
+      itemBuilder: (context, index) => _buildFoodCard(foods[index]),
+    );
+  }
+
 
 Widget _buildHorizontalListview() {
   return Container(

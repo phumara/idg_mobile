@@ -41,14 +41,25 @@ class HomeScreen extends StatelessWidget {
    );
   }
 
-  Widget _buildBody() {
-    return Image.network(
-        'https://i.pinimg.com/736x/fa/b5/8c/fab58cfd10957d5db2c1611b705992bb.jpg',
-        fit: .cover,
-        width: double.maxFinite,
-        height: double.maxFinite,
-      );
+Widget _buildBody() {
+    return Container(
+      color: Colors.red,
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8,vertical: 32),
+        child: Container(color : Colors.blue),
+    ) 
+    ); 
   }
+
+  // Widget _buildBody() {
+  //   return Image.network(
+  //       'https://i.pinimg.com/736x/fa/b5/8c/fab58cfd10957d5db2c1611b705992bb.jpg',
+  //       fit: .cover,
+  //       width: double.maxFinite,
+  //       height: double.maxFinite,
+  //     );
+  // }
 
   AppBar _buildAppbar() {
     return AppBar(

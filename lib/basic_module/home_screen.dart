@@ -41,16 +41,16 @@ class HomeScreen extends StatelessWidget {
    );
   }
 
-Widget _buildBody() {
-    return Container(
-      color: Colors.red,
-      alignment: Alignment.topLeft,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8,vertical: 32),
-        child: Container(color : Colors.blue),
-    ) 
-    ); 
-  }
+// Widget _buildBody() {
+//     return Container(
+//       color: Colors.red,
+//       alignment: Alignment.topLeft,
+//       child: Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 8,vertical: 32),
+//         child: Container(color : Colors.blue),
+//     ) 
+//     ); 
+//   }
 
   // Widget _buildBody() {
   //   return Image.network(
@@ -60,6 +60,104 @@ Widget _buildBody() {
   //       height: double.maxFinite,
   //     );
   // }
+
+Widget _buildBody() {
+   
+  return  _buildPoster();  
+  }
+
+Widget _buildPoster() {
+    final pic = 'https://i.pinimg.com/1200x/c6/99/c9/c699c918cf736e8efeaa6c55b031ef6d.jpg';
+    return Padding(
+      padding:const EdgeInsets.all(8.0),
+      child: Column(
+        children:[
+          _buildPosterImage(pic),
+          _buildPosterText(),
+          _buildPosterIconRow(),
+        ],
+      )
+      );
+    
+  }
+
+Widget _buildPosterIconRow() {
+  return Container(
+          color: const Color.fromARGB(255, 192, 216, 191),
+          child: Row(
+            children: [
+              IconButton(onPressed: () {}, icon: FaIcon(FontAwesomeIcons.heart),color: Colors.red,),
+              IconButton(onPressed: () {}, icon: FaIcon(FontAwesomeIcons.comment),color: Colors.blue,),
+              IconButton(onPressed: () {}, icon: FaIcon(FontAwesomeIcons.bookmark),color: Colors.green,),
+              Spacer(),
+              IconButton(onPressed: () {}, icon: FaIcon(FontAwesomeIcons.share),color: Colors.purple,),
+            ],
+            
+          ),
+        );
+}
+
+Widget _buildPosterText() {
+  return Container(
+          color: const Color.fromARGB(255, 241, 236, 236),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Create eye-catching Sprite poster designs that highlight freshness and vibrant graphics. The primary keyword "facebook advertising poster design" is reflected in inspiring ads and brand promotion',
+               style: TextStyle(fontSize: 10,fontWeight: FontWeight.normal),
+
+            ),
+          ),
+        );
+}
+
+Widget _buildPosterImage(String pic) {
+  return ClipRRect(
+          borderRadius: BorderRadius.only( 
+          topLeft: .circular(16), 
+          topRight: .circular(16)),
+          child: AspectRatio(
+            aspectRatio: 1.5,
+            child: Image.network(
+              pic,
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+}
+
+
+Widget _buildRow() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Container(color: Colors.pink, width: 70, height: 80),
+        Container(color: Colors.blue, width: 50, height: 70),
+        Container(color: Colors.orange, width: 80, height: 50),
+        Container(color: Colors.lime, width: 60, height: 30),
+        Container(color: Colors.purple, width: 30, height: 40),
+      ],
+    )
+    );
+  }
+
+Widget _buildColumn() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Container(color: Colors.pink, width: 70, height: 80),
+        Container(color: Colors.blue, width: 50, height: 70),
+        Container(color: Colors.orange, width: 80, height: 50),
+        Container(color: Colors.lime, width: 60, height: 30),
+        Container(color: Colors.purple, width: 30, height: 40),
+      ],
+    )
+    );
+  }
 
   AppBar _buildAppbar() {
     return AppBar(

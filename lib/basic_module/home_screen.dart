@@ -66,7 +66,305 @@ class HomeScreen extends StatelessWidget {
 
 Widget _buildBody() {
    
-  return _buildFoodGridview();
+   return _buildMainListView();
+  }
+
+
+  Widget _buildMainListView() {
+    return ListView(
+      physics: BouncingScrollPhysics(),
+      children: [
+        _buildLabel("មុខម្ហូបប្រចាំហាង", Icons.new_label),
+        //_buildFoodStoryfood1(),
+        _buildFoodStorycircle(),
+        _buildLabel("មុខម្ហូបល្បី", Icons.backpack),
+        _buildFoodfamous(),
+        _buildLabel("ភេសជ្ជៈ", Icons.water),
+        _buildDrink(),
+      ],
+    );
+  }
+
+  ListTile _buildLabel(String text, IconData icon) {
+    return ListTile(
+      iconColor: const Color.fromARGB(255, 176, 124, 124),
+      textColor: const Color.fromARGB(255, 210, 124, 124),
+      leading: Icon(icon),
+      title: Text(text),
+    );
+  }
+
+Widget _buildDrink() {
+    return SizedBox(
+      height: 250,
+      child: GridView.builder(
+        padding: .all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 1,
+          crossAxisSpacing: 8,
+          crossAxisCount: 1,
+          childAspectRatio: 4 / 4,
+        ),
+        physics: BouncingScrollPhysics(),
+        scrollDirection: .horizontal,
+        itemCount: foods2.length,
+        itemBuilder: (context, index) {
+          final item = foods2[index];
+          return Column(
+            children: [
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      item.image,
+                      fit: .cover,
+                      width: .maxFinite,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 1),
+                child: Text(item.title, maxLines: 1, overflow: .ellipsis),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+Widget _buildFoodfamous() {
+    return SizedBox(
+      height: 250,
+      child: GridView.builder(
+        padding: .all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 1,
+          crossAxisSpacing: 1,
+          crossAxisCount: 1,
+          childAspectRatio: 4 / 4,
+        ),
+        physics: BouncingScrollPhysics(),
+        scrollDirection: .horizontal,
+        itemCount: foods1.length,
+        itemBuilder: (context, index) {
+          final item = foods1[index];
+          return Column(
+            children: [
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      item.image,
+                      fit: .cover,
+                      width: .maxFinite,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 1),
+              ),
+              Text(
+                  item.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                // Text(
+                //   item.des,
+                //   maxLines: 2,
+                //   overflow: TextOverflow.ellipsis,
+                // ),
+
+                  Text('Rating: ${item.rate}'),
+            ],
+            
+          );
+        },
+      ),
+    );
+  }
+
+Widget _buildFoodStorycircle() {
+    return SizedBox(
+      height: 150,
+      child: GridView.builder(
+        padding: .all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 0,
+          crossAxisSpacing: 8,
+          crossAxisCount: 1,
+          childAspectRatio: 1,
+        ),
+        physics: BouncingScrollPhysics(),
+        scrollDirection: .horizontal,
+        itemCount: foods.length,
+        itemBuilder: (context, index) {
+          final item = foods[index];
+          return Column(
+            children: [
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipOval(
+                    child: Image.network(
+                      item.image,
+                      fit: .cover,
+                      width: .maxFinite,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 1),
+                child: Text(item.title, maxLines: 1, overflow: .ellipsis),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+
+Widget _buildFoodStorycircle11() {
+    return SizedBox(
+      height: 300,
+      child: GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 1,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 1,
+      ),
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemCount: foods.length,
+      itemBuilder:((context, index) {
+        final item = foods[index];
+        //return _buildFoodCard(item);
+        return ClipOval (
+         // borderRadius: BorderRadius.circular(16),
+          child: GridTile(
+            child: Image.network(item.image, fit: BoxFit.cover),
+            footer: GridTileBar(
+              backgroundColor: Colors.black54,
+              title: Text(item.title, style: TextStyle(fontSize: 14)),
+              subtitle: Text('Rating: ${item.rate}', style: TextStyle(fontSize: 12)),
+            ),
+          ),
+        );
+      })
+      //itemBuilder: (context, index) => _buildFoodCard(foods[index]),
+      )//physics: const BouncingScrollPhysics(),
+    );
+  }
+Widget _buildFoodStoryfood2() {
+    return SizedBox(
+      height: 300,
+      child: GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 1,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 4/3,
+      ),
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemCount: foods2.length,
+      itemBuilder:((context, index) {
+        final item = foods2[index];
+        //return _buildFoodCard(item);
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: GridTile(
+            child: Image.network(item.image, fit: BoxFit.cover),
+            //footer: GridTileBar(
+             // backgroundColor: Colors.black54,
+             // title: Text(item.title, style: TextStyle(fontSize: 14)),
+             // subtitle: Text('Rating: ${item.rate}', style: TextStyle(fontSize: 12)),
+           // ),
+         
+          ),
+         
+        );
+      })
+      //itemBuilder: (context, index) => _buildFoodCard(foods[index]),
+      )//physics: const BouncingScrollPhysics(),
+    );
+  }
+Widget _buildFoodStoryfood1() {
+    return SizedBox(
+      height: 300,
+      child: GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 1,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 4/3,
+      ),
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemCount: foods1.length,
+      itemBuilder:((context, index) {
+        final item = foods1[index];
+        //return _buildFoodCard(item);
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: GridTile(
+            child: Image.network(item.image, fit: BoxFit.cover),
+            //footer: GridTileBar(
+             // backgroundColor: Colors.black54,
+             // title: Text(item.title, style: TextStyle(fontSize: 14)),
+             // subtitle: Text('Rating: ${item.rate}', style: TextStyle(fontSize: 12)),
+           // ),
+          ),
+        );
+      })
+      //itemBuilder: (context, index) => _buildFoodCard(foods[index]),
+      )//physics: const BouncingScrollPhysics(),
+    );
+  }
+Widget _buildFoodStory() {
+    return SizedBox(
+      height: 300,
+      child: GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 1,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 4/3,
+      ),
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      itemCount: foods.length,
+      itemBuilder:((context, index) {
+        final item = foods[index];
+        //return _buildFoodCard(item);
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: GridTile(
+            child: Image.network(item.image, fit: BoxFit.cover),
+            //footer: GridTileBar(
+             // backgroundColor: Colors.black54,
+             // title: Text(item.title, style: TextStyle(fontSize: 14)),
+             // subtitle: Text('Rating: ${item.rate}', style: TextStyle(fontSize: 12)),
+           // ),
+          ),
+        );
+      })
+      //itemBuilder: (context, index) => _buildFoodCard(foods[index]),
+      )//physics: const BouncingScrollPhysics(),
+    );
   }
 
 Widget _buildFoodGridview() {
@@ -170,7 +468,7 @@ Widget _buildGridView() {
 
 
 Widget _buildHorizontalListview() {
-  return Container(
+  return SizedBox(
     height: 200,
     child: ListView(
       scrollDirection: Axis.horizontal,
@@ -291,7 +589,7 @@ Widget _buildColumn() {
 
   AppBar _buildAppbar() {
     return AppBar(
-      title: Text('កម្មវិធីខ្មែរ App',style: GoogleFonts.moul(fontSize: 20,fontWeight: FontWeight.bold)),
+      title: Text('បញ្ជីមុខម្ហូប',style: GoogleFonts.moul(fontSize: 20,fontWeight: FontWeight.bold)),
       backgroundColor: const Color.fromARGB(255, 173, 162, 13),
       foregroundColor: const Color.fromARGB(255, 53, 50, 50),
       centerTitle: true,

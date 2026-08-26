@@ -1,147 +1,107 @@
 class Food {
   final int id;
   final String title;
-  final String des;
+  final double price;
   final String image;
-  final double rate;
 
-  Food(this.id, this.title, this.des, this.image, this.rate);
+  Food(this.id, this.title, this.price, this.image);
 }
 
-// Food ideas inspired by the Pinterest food search page.
-final List<Food> foods = [
+List<Food> foodList1 = [
   Food(
-    1,
-    'Avocado Toast',
-    'Creamy avocado, poached egg, and fresh herbs.',
-    'https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=800',
-    4.8,
+    101,
+    "រោសឆិកខិន",
+    3.5,
+    "https://i.pinimg.com/1200x/fe/65/fd/fe65fd37f7e8627b8d1f7951e7f3c8d1.jpg",
   ),
   Food(
-    2,
-    'Fresh Salad Bowl',
-    'Colorful greens with vegetables and a light dressing.',
-    'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800',
-    4.7,
+    102,
+    "គោឡើងភ្នំ",
+    7,
+    "https://i.pinimg.com/736x/7e/b5/aa/7eb5aa4d92e0cc7190ad526845505605.jpg",
   ),
   Food(
-    3,
-    'Pasta Carbonara',
-    'Classic pasta with creamy sauce and crispy bacon.',
-    'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800',
-    4.9,
-  ),
-  Food(
+    103,
+    "ទឹកគ្រឿងពិសេស",
     4,
-    'Berry Pancakes',
-    'Fluffy pancakes topped with berries and maple syrup.',
-    'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=800',
-    4.6,
+    "https://i.ytimg.com/vi/FcMGJGvOBcI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBH7iEZ059SQ8otKVvXhqNjOWNcdA",
   ),
   Food(
+    104,
+    "សាច់គោអាំងទឹកប្រហុក",
     5,
-    'Sushi Platter',
-    'Fresh sushi rolls served with soy sauce and wasabi.',
-    'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800',
-    4.8,
+    "https://i.ytimg.com/vi/TP5Tp2PviKg/maxresdefault.jpg",
   ),
   Food(
-    6,
-    'Cheese Burger',
-    'Juicy beef patty with cheese, lettuce, and tomato.',
-    'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800',
-    4.7,
+    105,
+    "ឆាឆ្អឹងជំនីជូរអែម",
+    4,
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgpiNyLY39N1hDRYx2_K9OWBzhy1__dhmnSg&s",
   ),
 ];
 
-
-final List<Food> foods1 = [
-  Food(  
-    1,
-    'Avocado Toast',
-    'Creamy avocado, poached egg, and fresh herbs.',
-    'https://i.pinimg.com/736x/86/d6/40/86d6406a3dbe3631b260156db1544246.jpg',
-    4.8,
+List<Food> foodList2 = [
+  Food(
+    101,
+    'សាច់គោអាំង',
+    5.0,
+    "https://iowagirleats.com/wp-content/uploads/2024/09/Perfect-Grilled-Steak-with-Herb-Butter-iowagirleats-Featured-1200x2-1.jpg",
   ),
   Food(
-    2,
-    'Fresh Salad Bowl',
-    'Colorful greens with vegetables and a light dressing.',
-    'https://i.pinimg.com/736x/2e/c0/d4/2ec0d4c8fcc039e7a7729553cff492a9.jpg',
-    4.7,
+    102,
+    'ឆាបន្លែគ្រប់មុខ',
+    3.5,
+    "https://i.ytimg.com/vi/sRr8jI3w2ZE/maxresdefault.jpg",
   ),
   Food(
+    103,
+    'គោឡើងភ្នំ',
+    5.5,
+    "https://i.ytimg.com/vi/TSfzgcwj_Fs/maxresdefault.jpg",
+  ),
+  Food(
+    104,
+    'ម្ជួគ្រឿងឆ្អឹងជំនីជ្រូក',
+    4.0,
+    "https://s5.kh1.co/ce/ce690c47c44d7bacebe655f9233e498cfd5b10b4.jpg",
+  ),
+  Food(
+    105,
+    'អាម៉ុកត្រី',
     3,
-    'Pasta Carbonara',
-    'Classic pasta with creamy sauce and crispy bacon.',
-    'https://i.pinimg.com/736x/20/61/be/2061bea6520b4301561f9c35f5e03b81.jpg',
-    4.9,
-  ),
-  Food(
-    4,
-    'Berry Pancakes',
-    'Fluffy pancakes topped with berries and maple syrup.',
-    'https://i.pinimg.com/736x/ba/41/58/ba415860e24cd81c113e711fdcbdee2c.jpg',
-    4.6,
-  ),
-  Food(
-    5,
-    'Sushi Platter',
-    'Fresh sushi rolls served with soy sauce and wasabi.',
-    'https://i.pinimg.com/736x/dc/cd/fe/dccdfeb9c8d3d251fffac914202c237e.jpg',
-    4.8,
-  ),
-  Food(
-    6,
-    'Cheese Burger',
-    'Juicy beef patty with cheese, lettuce, and tomato.',
-    'https://i.pinimg.com/736x/ba/41/58/ba415860e24cd81c113e711fdcbdee2c.jpg',
-    4.7,
+    "https://i.ytimg.com/vi/CSJgF6jx8Ak/maxresdefault.jpg",
   ),
 ];
 
-
-final List<Food> foods2 = [
-  Food(  
+List<Food> westernFoods = [
+  Food(
     1,
-    'Avocado Toast',
-    'Creamy avocado, poached egg, and fresh herbs.',
-    'https://i.pinimg.com/736x/0a/34/4c/0a344cfabbe54777fb3b1ff22405507c.jpg',
-    4.8,
+    "Grilled Steak",
+    12.99,
+    "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
   ),
   Food(
     2,
-    'Fresh Salad Bowl',
-    'Colorful greens with vegetables and a light dressing.',
-    'https://i.pinimg.com/736x/da/e3/a8/dae3a884189cee56fde94fcefff0a036.jpg',
-    4.7,
+    "Creamy Alfredo Pasta",
+    7.99,
+    "https://www.goodnes.com/sites/g/files/jgfbjl321/files/styles/facebook_share/public/recipe-thumbnail/116751-0a0717810b73a1672a029c29788e557b_creamy_alfredo_pasta_long_left.jpg?itok=gZ6FDaar",
   ),
   Food(
     3,
-    'Pasta Carbonara',
-    'Classic pasta with creamy sauce and crispy bacon.',
-    'https://i.pinimg.com/736x/6c/87/f8/6c87f8b8f76c905359ca953c59bebe88.jpg',
-    4.9,
+    "Lasagna",
+    5.99,
+    "https://thecozycook.com/wp-content/uploads/2022/04/Lasagna-Recipe-f.jpg",
   ),
   Food(
     4,
-    'Berry Pancakes',
-    'Fluffy pancakes topped with berries and maple syrup.',
-    'https://i.pinimg.com/736x/07/9e/4e/079e4eec79633c06259b7e0db40b9ea2.jpg',
-    4.6,
+    "Chicken Parmigiana",
+    9.99,
+    "https://www.recipetineats.com/wp-content/uploads/2020/09/Chicken-Parmigiana_7-SQ.jpg",
   ),
   Food(
     5,
-    'Sushi Platter',
-    'Fresh sushi rolls served with soy sauce and wasabi.',
-    'https://i.pinimg.com/736x/75/74/23/757423565a0d67a59b6406c03d9fe9e6.jpg',
-    4.8,
-  ),
-  Food(
-    6,
-    'Cheese Burger',
-    'Juicy beef patty with cheese, lettuce, and tomato.',
-    'https://i.pinimg.com/736x/bc/d0/f2/bcd0f224ee8ee64e8f55ed2865d51e87.jpg',
-    4.7,
+    "Fish and Chips",
+    7.99,
+    "https://grandbaby-cakes.com/wp-content/uploads/2023/04/fish-and-chips-recipe.jpg",
   ),
 ];

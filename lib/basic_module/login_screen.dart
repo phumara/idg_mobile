@@ -1,49 +1,46 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // const LoginScreen({super.key});
   final _formKey = GlobalKey<FormState>();
-  final _emailCtrl = TextEditingController();
-  final _passCtrl = TextEditingController();
-  bool _hidePassword = true;
 
-  @override
-  void dispose() {
-    _emailCtrl.dispose();
-    _passCtrl.dispose();
-    super.dispose();
-  }
-
-final back="https://i.pinimg.com/736x/e4/e8/88/e4e8883588ab25519e03217a7e51ebfa.jpg";
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double padding = 0;
+    final max = 600;
+    if (width > max) {
+      padding = (width - max) / 2;
+    } else {
+      padding = 0;
+    }
+
+    final back =
+        "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2020/07/trendy-background-ideas-cover.jpg";
+
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(back),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(image: NetworkImage(back), fit: .cover),
+        // ),
         child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: SizedBox(
-              width: 350,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    _buildEmailField(),
-                    _buildPasswordField(),
-                    _buildLoginButton(),
+                    _buildEmailTextField(),
+                    _buildPasswordTextField(),
+                    _buildButton(),
                   ],
                 ),
               ),
@@ -53,100 +50,88 @@ final back="https://i.pinimg.com/736x/e4/e8/88/e4e8883588ab25519e03217a7e51ebfa.
       ),
     );
   }
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: SafeArea(
-  //       child: Center(
-  //         child: SingleChildScrollView(
-  //           padding: const EdgeInsets.all(24),
-  //           child: SizedBox(
-  //             width: 350,
-  //             child: Form(
-  //               key: _formKey,
-  //               child: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: [
-  //                   _buildEmailField(),
-  //                   _buildPasswordField(),
-  //                   _buildLoginButton(),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
-  Widget _buildEmailField() {
+  final _emailCtrl = TextEditingController();
+
+  Widget _buildEmailTextField() {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: _emailCtrl,
-        enabled: true,
-        autofocus: true,
-        keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Enter your email',
+          hintText: "Enter Email",
           prefixIcon: Icon(Icons.email),
         ),
+        keyboardType: .emailAddress,
+        textInputAction: .next,
         validator: (text) {
-          if (text == null || text.trim().isEmpty) {
-            return 'Please enter your email';
+          if (text!.isEmpty) {
+            return "Email is required";
           }
-          if (!text.contains('@')) return 'Invalid email format';
-          return null;
+          if (EmailValidator.validate(text) == false) {
+            return "Email format is not correct";
+          }
+          return null; // no error
         },
       ),
     );
   }
 
-  Widget _buildPasswordField() {
+  final _passCtrl = TextEditingController();
+
+  bool _hidePassword = true;
+
+  Widget _buildPasswordTextField() {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: _passCtrl,
-        enabled: true,
-        obscureText: _hidePassword,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          hintText: 'Enter password',
-          prefixIcon: const Icon(Icons.key),
+          border: OutlineInputBorder(),
+          hintText: "Enter Password",
+          prefixIcon: Icon(Icons.key),
           suffixIcon: IconButton(
             onPressed: () {
               setState(() {
                 _hidePassword = !_hidePassword;
               });
             },
-            icon: Icon(
-              _hidePassword ? Icons.visibility : Icons.visibility_off,
-            ),
+            icon: Icon(_hidePassword ? Icons.visibility : Icons.visibility_off),
           ),
         ),
+        textInputAction: .next,
+        obscureText: _hidePassword,
         validator: (text) {
-          if (text == null || text.isEmpty) return 'Password is required';
-          if (text.length < 6) return 'Password must be at least 6 characters';
-          return null;
+          if (text!.isEmpty) {
+            return "Password is required";
+          }
+          if (text.length < 6) {
+            return "Password length must be at 6 characters";
+          }
+          return null; // no error
         },
       ),
     );
   }
 
-  Widget _buildLoginButton() {
+  Widget _buildButton() {
     return SizedBox(
       width: 300,
       child: FilledButton.icon(
-        icon: const Icon(Icons.login),
-        label: const Text('Login'),
         onPressed: () {
-          if (_formKey.currentState?.validate() == true) {
-            // Login logic goes here.
+          if (_formKey.currentState!.validate()) {
+            if (_emailCtrl.text.toLowerCase().trim() == "kosal@gmail.com" &&
+                _passCtrl.text.trim() == "123456") {
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+            }
           }
         },
+        label: Text("LOGIN"),
+        icon: Icon(Icons.login),
       ),
     );
   }
 }
- 

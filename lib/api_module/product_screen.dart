@@ -1,140 +1,5 @@
-// // import 'package:flutter/material.dart';
+import 'dart:convert';
 
-// // class ProductScreen extends StatefulWidget {
-// //   const ProductScreen({super.key});
-
-// //   @override
-// //   State<ProductScreen> createState() => _ProductScreenState();
-// // }
-
-// // class _ProductScreenState extends State<ProductScreen> {
-
-// //   int sum(int a, int b){
-// //     return a + b;
-// //   }
-
-// //   Future<int> add(int a, int b){
-// //     return Future.value(a + b);
-// //   }
-
-// //   void hello(String name){
-// //     debugPrint("hello $name");
-// //   }
-
-// //   Future<void> hi(String name) async{
-// //     debugPrint("hi $name");
-// //   }
-
-// // Future<String>_fakeReading() async{
-// // await Future.delayed(Duration(seconds: 2));
-// // return "Hello World";
-// // }
-
-// // Widget _buildFuture(){
-// //   return Center(child: CircularProgressIndicator());
-// // }
-
-// //   @override
-// //   Widget build(BuildContext context) {
-    
-// //     // int s = sum(10, 20);
-// //     // debugPrint("s = $s");
-
-// //     // add(20, 30).then((a){
-// //     //   debugPrint("a = $a");
-// //     // });
-    
-// //     // hello("Sok");
-// //     // hi("Sok");
-
-
-// //     return Scaffold(
-// //       appBar: AppBar(
-// //         title: Text("Product Screen"),
-      
-// //       ),
-// //       body: _buildFuture(),
-// //     );
-// //   }
-// // }
-
-// import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-
-// class ProductScreen extends StatefulWidget {
-//   const ProductScreen({super.key});
-
-//   @override
-//   State<ProductScreen> createState() => _ProductScreenState();
-// }
-
-// class _ProductScreenState extends State<ProductScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Product Screen")),
-//       body: _buildFuture(),
-//     );
-//   }
-
-//   Future<String> _fakeReading() async {
-//     // await Future.delayed(Duration(seconds: 200), () {});
-//     // return "Some data  hello word";
-
-//     http.Response response = await http.get(Uri.parse("https://fakestoreapi.com/products"));
-//     return response.body;
-//   }
-
-//   late Future<String> _futureData = _fakeReading();
-
-//   Widget _buildFuture() {
-//     return Center(
-//       child: FutureBuilder<String>(
-//         future: _futureData,
-//         builder: (context, snapshot) {
-//           if (snapshot.hasError) {
-//             return Column(
-//               mainAxisAlignment: .center,
-//               children: [
-//                 Text("Error: ${snapshot.error.toString()}"),
-//                 FilledButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       _futureData = _fakeReading();
-//                     });
-//                   },
-//                   child: Text("RETRY"),
-//                 ),
-//               ],
-//             );
-//           }
-
-//           if (snapshot.connectionState == .done) {
-//             return Column(
-//               mainAxisAlignment: .center,
-//               children: [
-//                 Text("Data: ${snapshot.data}"),
-//                 FilledButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       _futureData = _fakeReading();
-//                     });
-//                   },
-//                   child: Text("REFRESH"),
-//                 ),
-//               ],
-//             );
-//           } else {
-//             return CircularProgressIndicator();
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
-
-
-//Exmaple 31
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -166,12 +31,17 @@ class _ProductScreenState extends State<ProductScreen> {
     );
   }
 
-  Future<String> _fakeReading() async {
+  Future<List<Map<String, dynamic>>> _fakeReading() async {
     final url = "https://fakestoreapi.com/products";
     try {
       http.Response response = await http.get(Uri.parse(url));
-      if(response.statusCode == 200){ //200: success
-        return response.body;
+      //200: success
+      if (response.statusCode == 200) {
+        List list = jsonDecode(response.body);
+        List<Map<String, dynamic>> data = list
+            .map((x) => x as Map<String, dynamic>)
+            .toList();
+        return data;
       }
       throw Exception("Error status code: ${response.statusCode}");
     } catch (e) {
@@ -179,7 +49,7 @@ class _ProductScreenState extends State<ProductScreen> {
     }
   }
 
-  late Future<String> _futureData = _fakeReading();
+  late Future<List<Map<String, dynamic>>> _futureData = _fakeReading();
 
   Widget _buildFuture() {
     return Center(
@@ -189,7 +59,7 @@ class _ProductScreenState extends State<ProductScreen> {
             _futureData = _fakeReading();
           });
         },
-        child: FutureBuilder<String>(
+        child: FutureBuilder<List<Map<String, dynamic>>>(
           future: _futureData,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -198,7 +68,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 child: Column(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.error, size: 50,),
+                    Icon(Icons.error, size: 50),
                     Text("Error: ${snapshot.error.toString()}"),
                     FilledButton(
                       onPressed: () {
@@ -214,10 +84,7 @@ class _ProductScreenState extends State<ProductScreen> {
             }
 
             if (snapshot.connectionState == .done) {
-              return SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Text("${snapshot.data}"),
-              );
+              return _buildGridView(snapshot.data);
             } else {
               return CircularProgressIndicator();
             }
@@ -226,5 +93,51 @@ class _ProductScreenState extends State<ProductScreen> {
       ),
     );
   }
-}
 
+  Widget _buildGridView(List<Map<String, dynamic>>? items) {
+
+    if (items == null) {
+      return Icon(Icons.list);
+    }
+
+    bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    return GridView.builder(
+      padding: .all(8),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        crossAxisCount: landscape ? 4 : 2,
+        childAspectRatio: 4 / 5, //x / y
+      ),
+      physics: BouncingScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: .vertical,
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+        return Card(
+          child: Column(
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: .circular(8),
+                  child: Image.network(item['image'], fit: .cover),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                child: Text(item['title'], maxLines: 1, overflow: .ellipsis),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                child: Text("US\$ ${item['price']}", maxLines: 1, overflow: .ellipsis),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

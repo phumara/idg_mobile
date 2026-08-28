@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:skeletonizer/skeletonizer.dart';
+import 'ui_config.dart';
+
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -27,7 +30,8 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ],
       ),
-      body: _buildFuture(),
+      //body: _buildFuture(),
+      body: _buildSampleSkeleton(),
     );
   }
 
@@ -84,6 +88,7 @@ class _ProductScreenState extends State<ProductScreen> {
             }
 
             if (snapshot.connectionState == .done) {
+              //return _buildGridView(snapshot.data);
               return _buildGridView(snapshot.data);
             } else {
               return CircularProgressIndicator();
@@ -106,10 +111,10 @@ class _ProductScreenState extends State<ProductScreen> {
     return GridView.builder(
       padding: .all(8),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        crossAxisCount: landscape ? 4 : 2,
-        childAspectRatio: 4 / 5, //x / y
+        mainAxisSpacing: padding,
+        crossAxisSpacing: padding,
+        crossAxisCount: landscape ? landscapeGrid : portraitGrid,
+        childAspectRatio: gridRatio, //x / y
       ),
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
@@ -140,4 +145,27 @@ class _ProductScreenState extends State<ProductScreen> {
       },
     );
   }
+
+  Widget _buildSampleSkeleton(){
+    return Skeletonizer(
+      child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        children: [
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.face),
+              title: Text("Some text sadasd sadas das dwwwwwwwwwwwwwwwwwwwwwwwwwwww"),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.face),
+              title: Text("Some text  343434 434343 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }

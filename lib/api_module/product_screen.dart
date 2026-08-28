@@ -30,8 +30,8 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ],
       ),
-      //body: _buildFuture(),
-      body: _buildSampleSkeleton(),
+      body: _buildFuture(),
+      //body: _buildSampleSkeleton(),
     );
   }
 
@@ -67,34 +67,96 @@ class _ProductScreenState extends State<ProductScreen> {
           future: _futureData,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.error, size: 50),
-                    Text("Error: ${snapshot.error.toString()}"),
-                    FilledButton(
-                      onPressed: () {
-                        setState(() {
-                          _futureData = _fakeReading();
-                        });
-                      },
-                      child: Text("RETRY"),
-                    ),
-                  ],
-                ),
-              );
+              return  _buildError(snapshot.error.toString());
+              
             }
 
             if (snapshot.connectionState == .done) {
               //return _buildGridView(snapshot.data);
               return _buildGridView(snapshot.data);
             } else {
-              return CircularProgressIndicator();
+              return _buildLoading();
             }
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildError(String error) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: .center,
+        children: [
+          Icon(Icons.error, size: 50),
+          Text("Error: $error"),
+          FilledButton(
+            onPressed: () {
+              setState(() {
+                _futureData = _fakeReading();
+              });
+            },
+            child: Text("RETRY"),
+          ),
+        ],
+      ),
+    );
+  }
+
+   Widget _buildLoading() {
+    bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    return Skeletonizer(
+      child: GridView.builder(
+        padding: .all(padding),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: padding,
+          crossAxisSpacing: padding,
+          crossAxisCount: landscape ? landscapeGrid : portraitGrid,
+          childAspectRatio: gridRatio,
+        ),
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: .vertical,
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return Card(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: .circular(8),
+                    child: Container(),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 4,
+                  ),
+                  child: Text(
+                    "asdsadsdas dsa das das da",
+                    maxLines: 1,
+                    overflow: .ellipsis,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 4,
+                  ),
+                  child: Text(
+                    "sadsa das ds d as",
+                    maxLines: 1,
+                    overflow: .ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

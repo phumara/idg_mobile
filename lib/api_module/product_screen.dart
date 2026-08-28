@@ -8,13 +8,30 @@ import 'ui_config.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
-
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
+
 class _ProductScreenState extends State<ProductScreen> {
+  bool _showIcon = false;
   @override
+  void initState() {
+    super.initState();
+    _scroller.addListener(() {
+      if (_scroller.position.pixels < 400) {
+        setState(() {
+          _showIcon = false;
+        });
+      } else {
+        setState(() {
+          _showIcon = true;
+        });
+      }
+    });
+  }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -31,6 +48,7 @@ class _ProductScreenState extends State<ProductScreen> {
         ],
       ),
       body: _buildFuture(),
+      floatingActionButton: _showIcon ? _buildFloating() : null,
       //body: _buildSampleSkeleton(),
     );
   }
@@ -55,6 +73,19 @@ class _ProductScreenState extends State<ProductScreen> {
 
   late Future<List<Map<String, dynamic>>> _futureData = _fakeReading();
 
+  Widget _buildFloating() {
+    return FloatingActionButton(
+      onPressed: (){
+        _scroller.animateTo(0,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        );
+      },
+       
+      child: Icon(Icons.arrow_upward),
+    );
+  }
+  
   Widget _buildFuture() {
     return Center(
       child: RefreshIndicator(
@@ -161,6 +192,9 @@ class _ProductScreenState extends State<ProductScreen> {
     );
   }
 
+final _scroller = ScrollController();
+
+
   Widget _buildGridView(List<Map<String, dynamic>>? items) {
 
     if (items == null) {
@@ -171,6 +205,7 @@ class _ProductScreenState extends State<ProductScreen> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     return GridView.builder(
+      controller: _scroller,
       padding: .all(8),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         mainAxisSpacing: padding,

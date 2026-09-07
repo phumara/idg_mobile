@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'color_provider.dart';
-import 'theme_provider.dart';
+import '../basic_module/color_provider.dart';
+import '../basic_module/theme_provider.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class ApiSettingsScreen extends StatefulWidget {
+  const ApiSettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<ApiSettingsScreen> createState() => _ApiSettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _ApiSettingsScreenState extends State<ApiSettingsScreen> {
   bool _dark = false;
 
   @override

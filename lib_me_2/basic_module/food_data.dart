@@ -10,15 +10,15 @@ class Food {
 List<Food> foodList1 = [
   Food(
     101,
-    "ឆាក្តៅ",
+    "រោសឆិកខិន",
     3.5,
-    "https://s9.kh1.co/4a/4a00f7f022977efa4aee26726ac41ace0bca0fc2.jpg",
+    "https://i.pinimg.com/1200x/fe/65/fd/fe65fd37f7e8627b8d1f7951e7f3c8d1.jpg",
   ),
   Food(
     102,
     "គោឡើងភ្នំ",
     7,
-    "https://i.ytimg.com/vi/_12mKQnk4ik/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDLMiOV2ejY7j_MbsqLmXhUd-tR-Q",
+    "https://i.pinimg.com/736x/7e/b5/aa/7eb5aa4d92e0cc7190ad526845505605.jpg",
   ),
   Food(
     103,

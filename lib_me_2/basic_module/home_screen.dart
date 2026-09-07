@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'food_data.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -235,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AppBar _buildAppBar() {
     return AppBar(
       title: Text("កម្មវិធីលក់ម្ហូប"),
-      backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       centerTitle: true,
       leading: Padding(

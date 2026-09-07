@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
 import 'home_screen.dart';
 import 'login_screen.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'settings_screen.dart';
-
+import 'profile_screen.dart';
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
@@ -35,7 +34,7 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: Container(color: Colors.blue),
+          screen: ProfileScreen(),
           item: ItemConfig(
             icon: Icon(Icons.person),
             title: "Profile",

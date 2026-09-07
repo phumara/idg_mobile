@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'platzi_product_model.dart';
+import 'platzi_product_service.dart';
 import 'widgets/my_loading.dart';
-import 'product_service.dart';
-import 'product_model.dart';
 import 'ui_config.dart';
 import 'widgets/my_error.dart';
 
-class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+class PlatziProductScreen extends StatefulWidget {
+  const PlatziProductScreen({super.key});
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
+  State<PlatziProductScreen> createState() => _PlatziProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _PlatziProductScreenState extends State<PlatziProductScreen> {
   bool _showIcon = false;
 
   @override
@@ -35,7 +35,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Product Screen"),
+        title: Text("Platzi roduct Screen"),
         actions: [
           IconButton(
             onPressed: () {
@@ -65,9 +65,9 @@ class _ProductScreenState extends State<ProductScreen> {
     );
   }
 
-  final _service = ProductService();
+  final _service = PlatziProductService();
 
-  late Future<List<Product>> _futureData = _service.read();
+  late Future<List<PlatziProduct>> _futureData = _service.read();
 
   Widget _buildFuture() {
     return Center(
@@ -77,7 +77,7 @@ class _ProductScreenState extends State<ProductScreen> {
             _futureData = _service.read();
           });
         },
-        child: FutureBuilder<List<Product>>(
+        child: FutureBuilder<List<PlatziProduct>>(
           future: _futureData,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -110,7 +110,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   final _scroller = ScrollController();
 
-  Widget _buildGridView(List<Product>? items) {
+  Widget _buildGridView(List<PlatziProduct>? items) {
     if (items == null) {
       return Icon(Icons.list);
     }
@@ -143,7 +143,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 Expanded(
                   child: ClipRRect(
                     borderRadius: .circular(8),
-                    child: Image.network(item.image, fit: .cover),
+                    child: Image.network(item.images[0], fit: .cover),
                   ),
                 ),
                 Padding(

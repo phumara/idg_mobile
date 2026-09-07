@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'home_screen.dart';
 import 'login_screen.dart';
+import 'profile_screen.dart';
 
 class NavScreen extends StatefulWidget {
   const NavScreen({super.key});
@@ -27,7 +27,8 @@ class _NavScreenState extends State<NavScreen> {
       children: [
         HomeScreen(),
         LoginScreen(),
-        Container(color: Colors.purple),
+        ProfileScreen(),
+        //Container(color: Colors.purple),
         Container(color: Colors.yellow),
       ],
     );

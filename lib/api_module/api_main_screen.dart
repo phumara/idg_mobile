@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import 'home_screen.dart';
-import 'login_screen.dart';
-import 'settings_screen.dart';
+import 'apI_settings_screen.dart';
+import 'platzi_product_screen.dart';
+import 'dummy_product_screen.dart';
+import 'dummy_search_product_screen.dart';
+import 'platzi_search_product_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class ApiMainScreen extends StatelessWidget {
+  const ApiMainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class MainScreen extends StatelessWidget {
     return PersistentTabView(
       tabs: [
         PersistentTabConfig(
-          screen: HomeScreen(),
+          screen: PlatziProductScreen(),
           item: ItemConfig(
             icon: Icon(Icons.home),
             title: "Home",
@@ -26,7 +28,7 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: LoginScreen(),
+          screen: PlatziSearchProductScreen(),
           item: ItemConfig(
             icon: Icon(Icons.search),
             title: "Search",
@@ -35,16 +37,25 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: Container(color: Colors.blue),
+          screen: DummyProductScreen(),
           item: ItemConfig(
-            icon: Icon(Icons.person),
-            title: "Profile",
+            icon: Icon(Icons.book),
+            title: "Dummy",
+            activeForegroundColor: selectColor,
+            inactiveForegroundColor: unSelectColor,
+          ),
+        ),
+       PersistentTabConfig(
+          screen: DummySearchProductScreen(),
+          item: ItemConfig(
+            icon: Icon(Icons.search),
+            title: "Dummy Search",
             activeForegroundColor: selectColor,
             inactiveForegroundColor: unSelectColor,
           ),
         ),
         PersistentTabConfig(
-          screen: SettingsScreen(),
+          screen: ApiSettingsScreen(),
           item: ItemConfig(
             icon: Icon(Icons.menu),
             title: "Menu",
